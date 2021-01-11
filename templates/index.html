@@ -1,0 +1,45 @@
+{% extends "basic.html" %}
+
+{% block css %}
+.resultHeading, h4 {
+	letter-spacing: 2px
+}
+
+{% endblock %}
+
+{% block title %}Results Online - IIT Lahore{% endblock %}
+
+{% block body %}
+<div class="container my-4">
+<form action="result/" id="resultForm" method="POST">
+	{% csrf_token %}
+	<h1 class="resultHeading"><b>Check Your Result</b></h1>
+	<h4>Made By: <b><span class="text-success" id="author"></span></b></h3>
+	<div class="mb-3">
+  <label for="rollNumber" class="form-label">Enter Roll Number: </label>
+  <input type="text" class="form-control" id="rollNumber" name="rollNumber">
+</div>
+
+ <div class="col-auto">
+    <button type="submit" class="btn btn-success mb-3">Check Result</button>
+  </div>
+</form>
+</div>
+{% endblock %}
+
+{% block js %}
+<script src="https://cdn.jsdelivr.net/npm/typed.js@2.0.11"></script>
+<script>
+	var typed = new Typed('#author', {
+  strings: [
+  			'Hussnain Ahmad',
+  			'PsychoCoder25',
+  			'Ha Rajpoot'
+  			],
+  smartBackspace: true,
+  typeSpeed: 40,
+  backSpeed: 40,
+  loop: true
+});
+</script>
+{% endblock %}

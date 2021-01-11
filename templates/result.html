@@ -1,0 +1,276 @@
+{% extends "basic.html" %}
+
+{% block title %}Result of {{student.studentName}} - IIT Lahore{% endblock %}
+
+{% block css %}
+img {
+	width: 150px;
+	height: 150px;
+	margin-left: 70px
+}
+
+.information {
+	margin-left: 150px
+}
+
+@media (max-width: 995px){
+	.information {
+	margin-left: 0;
+}
+}
+{% endblock %}
+
+{% block body %}
+
+<div class="my-2 container">
+	<div id="dataToPrint">
+	<center>
+	<h1 id="result-heading"><b>Board of Intermediate & Secondary Education, Lahore</b></h1>
+	</center>
+	<div class="row">
+		<div class="my-2 col information">
+			<h4><b>Roll No:</b> {{student.rollNumber}}</h4>
+			<h4><b>Student Name:</b> {{student.studentName}}</h4>
+			<h4><b>Father Name:</b> {{student.fatherName}}</h4>
+		</div>
+
+		<div class="col">
+			<img src="/media/{{student.image}}" alt="Photo">
+		</div>
+	</div>
+<table class="my-3 table table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Subject</th>
+      <th scope="col">Max Marks</th>
+      <th scope="col">Theory</th>
+      <th scope="col">Grade</th>
+      <th scope="col">Percentage</th>
+      <th scope="col">Status</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td scope="row" id="Urdu">Urdu</td>
+      <td>75</td>
+      <td id="urduMarks">{{student.urdu}}</td>
+      <td id="urduGrade"></td>
+      <td id="urduPercentage"></td>
+      <td id="urduStatus"></td>
+    </tr>
+    <tr>
+      <td scope="row" id="English">English</td>
+      <td>75</td>
+      <td id="englishMarks">{{student.english}}</td>
+      <td id="englishGrade"></td>
+      <td id="englishPercentage"></td>
+      <td id="englishStatus"></td>
+    </tr>
+    <tr>
+     <td scope="row" id="Islamiyat">Islamiyat</td>
+      <td>50</td>
+      <td id="islMarks">{{student.islamiyat}}</td>
+      <td id="islGrade"></td>
+      <td id="islPercentage"></td>
+      <td id="islStatus"></td>
+    </tr>
+     <tr>
+     <td scope="row" id="PakStudies">Pak Studies</td>
+      <td>50</td>
+      <td id="sstMarks">{{student.pakStudy}}</td>
+      <td id="sstGrade"></td>
+      <td id="sstPercentage"></td>
+      <td id="sstStatus"></td>
+    </tr>
+     <tr>
+     <td scope="row" id="Math">Mathematics</td>
+      <td>75</td>
+      <td id="mathMarks">{{student.math}}</td>
+      <td id="mathGrade"></td>
+      <td id="mathPercentage">Otto</td>
+      <td id="mathStatus"></td>
+    </tr>
+    <tr>
+     <td scope="row" id="Physics">Physics</td>
+      <td>60</td>
+      <td id="physicsMarks">{{student.physics}}</td>
+      <td id="physicsGrade"></td>
+      <td id="physicsPercentage"></td>
+      <td id="physicsStatus"></td>
+    </tr>
+    <tr>
+     <td scope="row" id="Chemistry">Chemistry</td>
+      <td>60</td>
+      <td id="chemistryMarks">{{student.chemisty}}</td>
+      <td id="chemistryGrade"></td>
+      <td id="chemistryPercentage"></td>
+      <td id="chemistryStatus"></td>
+    </tr>
+    <tr>
+     <td scope="row" id="Computer">Computer Science</td>
+      <td>50</td>
+      <td id="computerMarks">{{student.computer}}</td>
+      <td id="computerGrade"></td>
+      <td id="computerPercentage"></td>
+      <td id="computerStatus"></td>
+    </tr>
+    <tr>
+     <th scope="row">Overall Result</th>
+      <td><b>495</b></td>
+      <td id="overallMarks"></td>
+      <td id="overallGrade"></td>
+      <td id="overallPercentage"></td>
+      <td id="overallStatus"></td>
+    </tr>
+  </tbody>
+</table>
+</div>
+<input type="button" value="Get Print" id="printBtn" onclick="Print_Page()" class="btn btn-lg btn-success">
+</div>
+{% endblock %}
+
+{% block js %}
+<script>
+// Calculating percentage of all subjects
+// Computer Percentage
+let computerMarks = Number(document.getElementById("computerMarks").innerText)
+console.log(computerMarks)
+let computerPercentage = (computerMarks/50*100).toFixed(2);
+document.getElementById("computerPercentage").innerText = computerPercentage;
+
+// Chemistry percentage
+let chemistryMarks = Number(document.getElementById("chemistryMarks").innerText)
+let chemistryPercentage = (chemistryMarks/60*100).toFixed(2);
+document.getElementById("chemistryPercentage").innerText = chemistryPercentage;
+
+// Physics percentage
+let physicsMarks = Number(document.getElementById("physicsMarks").innerText)
+let physicsPercentage = (physicsMarks/60*100).toFixed(2);
+document.getElementById("physicsPercentage").innerText = physicsPercentage;
+
+// Urdu percentage
+let urduMarks = Number(document.getElementById("urduMarks").innerText)
+let urduPercentage = (urduMarks/75*100).toFixed(2);
+document.getElementById("urduPercentage").innerText = urduPercentage;
+
+// English percentage
+let englishMarks = Number(document.getElementById("englishMarks").innerText)
+let englishPercentage = (englishMarks/75*100).toFixed(2);
+document.getElementById("englishPercentage").innerText = englishPercentage;
+
+// Islamiyat percentage
+let islMarks = Number(document.getElementById("islMarks").innerText)
+let islPercentage = (islMarks/50*100).toFixed(2);
+document.getElementById("islPercentage").innerText = islPercentage;
+
+// Math percentage
+let mathMarks = Number(document.getElementById("mathMarks").innerText)
+let mathPercentage = (mathMarks/75*100).toFixed(2);
+document.getElementById("mathPercentage").innerText = mathPercentage;
+
+// Pak Study percentage
+let sstMarks = Number(document.getElementById("sstMarks").innerText)
+let sstPercentage = (sstMarks/50*100).toFixed(2);
+document.getElementById("sstPercentage").innerText = sstPercentage;
+
+// Overall Marks
+let overallMarks = document.getElementById("overallMarks");
+let totalMarks = urduMarks + englishMarks + mathMarks + islMarks + sstMarks + physicsMarks + chemistryMarks + computerMarks;
+overallMarks.innerHTML = `<b>${totalMarks}</b>`
+
+// Overall Percentage
+let overallPercentage = document.getElementById("overallPercentage");
+let totalPercentage = (totalMarks / 495 * 100).toFixed(2);
+overallPercentage.innerHTML = `<b>${totalPercentage}%</b>`
+
+// function to calculate grade depending upon percentage
+function gradeCalculator(percentage) {
+	let grade = "";
+	if (percentage >= 90) {
+		grade = "A+"
+	}
+	else if (percentage >= 80) {
+		grade = "B+"
+	}
+	else if (percentage >= 70) {
+		grade = "C+"
+	}
+	else if (percentage >= 60) {
+		grade = "D+"
+	}
+	else if (percentage >= 50) {
+		grade = "E+"
+	}
+	else if (percentage >= 40) {
+		grade = "E"
+	}
+	else {
+		grade = "F"
+	}
+	return grade;
+}
+
+// Overall Grade
+let overallGrade = document.getElementById("overallGrade")
+overallGrade.innerHTML = '<b>' + gradeCalculator(totalPercentage) + '</b>';
+
+// Showing grades of each subject
+var subjects = ["urdu", "english", "math", "isl", "sst", "chemistry", "physics", "computer"]
+
+for (var i = 0; i < subjects.length; i++){
+	percentageOfSubject = Number(document.getElementById(`${subjects[i]}`+"Percentage").innerText);
+	document.getElementById(`${subjects[i]}`+"Grade").innerText = gradeCalculator(percentageOfSubject)
+}
+
+// Function to check Status of each subject
+function subjectStatus(percentage) {
+	let status = "";
+	if (percentage < 40){
+		status = "FAIL"
+	}
+	else {
+		status = "PASS"
+	}
+	return status;
+}
+
+// Showing Status of each subject
+for (var i = 0; i < subjects.length; i++){
+	statusOfSubject = Number(document.getElementById(`${subjects[i]}`+"Percentage").innerText);
+	document.getElementById(`${subjects[i]}`+"Status").innerText = subjectStatus(statusOfSubject)
+}
+
+// Logic for showing overall status
+var totalNumberOfStatus = 0;
+for (var i = 0; i < subjects.length; i++){
+	let element = document.getElementById(`${subjects[i]}` + "Status");
+	if (element.innerText == "PASS"){
+		totalNumberOfStatus = totalNumberOfStatus + 1;
+	}
+}
+
+// Logic for showing subject in which student is fail on overallStatus
+let subjectsToCheck = ["Urdu", "English", "Math", "Islamiyat", "PakStudies", "Chemistry", "Physics", "Computer"]
+let overallStatusDiv = document.getElementById('overallStatus');
+var overallStatusString = "";
+for (var i = 0; i < subjectsToCheck.length; i++){
+	let element = document.getElementById(`${subjects[i]}` + "Status");
+	let subject = document.getElementById(`${subjectsToCheck[i]}`);
+	if (element.innerText == "FAIL"){
+		overallStatusString += `<b>${subject.innerText.toUpperCase()}</b>` + " ";
+	}
+}
+
+if (totalNumberOfStatus == 8) {
+	document.getElementById("overallStatus").innerHTML = "<b>PASS</b>"
+}
+else {
+	document.getElementById("overallStatus").innerHTML = `${overallStatusString}`
+}
+
+// Printing The page
+function Print_Page() {
+	window.print()
+}
+</script>
+{% endblock %}
